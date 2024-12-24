@@ -72,7 +72,7 @@ const ConnectWallet: React.FC = () => {
   }
 
   return (
-    <div className="p-4 border rounded-lg shadow-lg bg-white max-w-md mx-auto">
+    <div className="p-4 border rounded-lg shadow-lg bg-white max-w-md mx-auto flex items-center justify-center h-full">
       {!isConnected ? (
         <button
           onClick={handleConnect}
