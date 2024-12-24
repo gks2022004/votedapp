@@ -64,3 +64,7 @@ contract Voting {
         return candidates.length;
     }
 }
+
+
+
+// 0x23c9347b2b530e0306eb04f8624d289dff350e5a
