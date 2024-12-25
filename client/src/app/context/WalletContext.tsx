@@ -2,6 +2,9 @@
 import React, { createContext, useContext, useState, useCallback, useEffect, ReactNode } from 'react';
 import { ethers } from 'ethers';
 
+
+
+
 interface WalletContextType {
   account: string | null;
   provider: ethers.providers.Web3Provider | null;

@@ -41,6 +41,7 @@ const VotingContract: React.FC = () => {
       setContract(votingWithSigner);
       loadContractData();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [provider, signer]);
 
   useEffect(() => {
@@ -49,6 +50,7 @@ const VotingContract: React.FC = () => {
     } else {
       setResults(null);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [votingActive, candidates]);
 
   const calculateResults = () => {
@@ -165,7 +167,7 @@ const VotingContract: React.FC = () => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-gray-50">
+    <div className="max-w-2xl mx-auto p-6 bg-gray-100">
       <h1 className="text-3xl font-bold mb-6 text-gray-800">Safe Voting System</h1>
       
       {error && (
@@ -253,7 +255,7 @@ const VotingContract: React.FC = () => {
   
         {userHasVoted && (
           <p className="text-center text-green-600 font-semibold">
-            You have already cast your vote
+            You have already cast your vote!
           </p>
         )}
       </div>
