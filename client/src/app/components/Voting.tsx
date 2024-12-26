@@ -167,100 +167,123 @@ const VotingContract: React.FC = () => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-gray-100">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Safe Voting System</h1>
-      
-      {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-6">
-          {error}
-        </div>
-      )}
-
-{!votingActive && results && results.winner && (
-  <div className="mb-8 p-8 bg-gradient-to-r from-green-50 to-green-100 border border-green-300 rounded-lg shadow-lg">
-    <h2 className="text-2xl font-semibold text-green-800 mb-4">Voting Results</h2>
-    <div className="space-y-4">
-      <p className="text-xl text-green-800">
-        Winner: <span className="font-bold text-green-600">{results.winner.name}</span>
-      </p>
-      <p className="text-lg text-green-700">
-        Winning Votes: <span className="font-bold">{results.winner.voteCount}</span> (
-        <span className="font-bold text-green-600">{results.winningPercentage.toFixed(2)}%</span>)
-      </p>
-      <p className="text-lg text-gray-700">
-        Total Votes Cast: <span className="font-semibold">{results.totalVotes}</span>
-      </p>
-    </div>
-  </div>
-)}
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 p-6">
+      {/* Header */}
+      <header className="max-w-4xl mx-auto text-center mb-12">
+        <h1 className="text-5xl font-extrabold text-gray-900 tracking-wide">
+          🗳️ Safe Voting System
+        </h1>
+        <p className="text-lg text-gray-600 mt-2">
+          Secure. Transparent. Decentralized.
+        </p>
+      </header>
   
-      {isAdmin && (
-        <div className="mb-8 p-6 bg-white shadow-lg rounded-lg">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">Admin Controls</h2>
-          
-          <div className="flex gap-4 mb-6">
-            <input
-              type="text"
-              value={newCandidateName}
-              onChange={(e) => setNewCandidateName(e.target.value)}
-              placeholder="Candidate Name"
-              className="flex-1 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-            />
+      <div className="max-w-4xl mx-auto space-y-10">
+        {/* Error Message */}
+        {error && (
+          <div className="p-4 bg-red-100 border-l-4 border-red-500 rounded-lg shadow-sm">
+            <p className="text-red-800 font-medium">{error}</p>
+          </div>
+        )}
+  
+        {/* Results Section */}
+        {!votingActive && results && results.winner && (
+         <div className="p-8 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl shadow-xl border border-green-300">
+         <h2 className="text-3xl font-bold text-green-900 mb-6">🎉 Voting Results</h2>
+         <div className="space-y-4">
+           <p className="text-lg text-green-900">
+             <span className="font-semibold text-gray-700">Winner:</span>{" "}
+             <span className="font-bold text-green-800">{results.winner.name}</span>
+           </p>
+           <p className="text-lg text-green-900">
+             <span className="font-semibold text-gray-700">Winning Votes:</span>{" "}
+             <span className="font-bold text-green-900">{results.winner.voteCount}</span>{" "}
+             <span className="text-gray-900">
+               (<span className="font-bold text-green-600">{results.winningPercentage.toFixed(2)}%</span>)
+             </span>
+           </p>
+           <p className="text-lg text-green-900">
+             <span className="font-semibold text-gray-700">Total Votes Cast:</span>{" "}
+             <span className="font-bold text-green-900">{results.totalVotes}</span>
+           </p>
+         </div>
+       </div>
+        )}
+  
+        {/* Admin Controls */}
+        {isAdmin && (
+          <div className="p-8 bg-white rounded-2xl shadow-lg">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6">🔧 Admin Controls</h2>
+  
+            <div className="flex items-center gap-4 mb-6">
+              <input
+                type="text"
+                value={newCandidateName}
+                onChange={(e) => setNewCandidateName(e.target.value)}
+                placeholder="Enter Candidate Name"
+                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 text-gray-900"
+              />
+              <button
+                onClick={handleAddCandidate}
+                className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-transform transform hover:scale-105 focus:ring-2 focus:ring-blue-300"
+              >
+                Add Candidate
+              </button>
+            </div>
+  
             <button
-              onClick={handleAddCandidate}
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              onClick={toggleVoting}
+              className={`w-full py-4 rounded-lg text-white font-bold text-lg shadow-md transform transition ${
+                votingActive
+                  ? "bg-red-600 hover:bg-red-700 focus:ring-2 focus:ring-red-300 hover:scale-105"
+                  : "bg-green-600 hover:bg-green-700 focus:ring-2 focus:ring-green-300 hover:scale-105"
+              }`}
             >
-              Add Candidate
+              {votingActive ? "End Voting" : "Start Voting"}
             </button>
           </div>
+        )}
   
-          <button
-            onClick={toggleVoting}
-            className={`px-6 py-3 rounded-lg ${
-              votingActive 
-                ? 'bg-red-600 hover:bg-red-700' 
-                : 'bg-green-600 hover:bg-green-700'
-            } text-white`}
-          >
-            {votingActive ? 'End Voting' : 'Start Voting'}
-          </button>
-        </div>
-      )}
+        {/* Candidate Section */}
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+            🗳️ Candidates {votingActive ? "(Voting Active)" : "(Voting Closed)"}
+          </h2>
   
-      <div className="grid gap-6">
-        <h2 className="text-xl font-semibold text-gray-800">
-          Candidates {votingActive ? '(Voting Active)' : '(Voting Closed)'}
-        </h2>
-        
-        {candidates.map((candidate) => (
-          <div
-            key={candidate.index}
-            className="p-4 border border-gray-200 rounded-lg flex justify-between items-center bg-white shadow-sm"
-          >
-            <div>
-              <h3 className="font-medium text-gray-800">{candidate.name}</h3>
-              <p className="text-sm text-gray-600">Votes: {candidate.voteCount}</p>
-            </div>
-            
-            {votingActive && !userHasVoted && (
-              <button
-                onClick={() => handleVote(candidate.index)}
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          <div className="grid gap-6">
+            {candidates.map((candidate) => (
+              <div
+                key={candidate.index}
+                className="p-6 bg-white border border-gray-200 rounded-lg shadow-md flex justify-between items-center transition-transform transform hover:scale-105"
               >
-                Vote
-              </button>
+                <div>
+                  <h3 className="text-lg font-medium text-gray-900">{candidate.name}</h3>
+                  <p className="text-sm text-gray-600">Votes: {candidate.voteCount}</p>
+                </div>
+  
+                {votingActive && !userHasVoted && (
+                  <button
+                    onClick={() => handleVote(candidate.index)}
+                    className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-300 transform transition-transform hover:scale-105"
+                  >
+                    Vote
+                  </button>
+                )}
+              </div>
+            ))}
+  
+            {userHasVoted && (
+              <div className="text-center py-4 bg-green-50 border border-green-400 text-green-700 rounded-lg shadow-md">
+                <p className="font-semibold text-lg">✅ You have already cast your vote!</p>
+              </div>
             )}
           </div>
-        ))}
-  
-        {userHasVoted && (
-          <p className="text-center text-green-600 font-semibold">
-            You have already cast your vote!
-          </p>
-        )}
+        </div>
       </div>
     </div>
   );
+    
+  
   
 };
 
